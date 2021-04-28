@@ -10,7 +10,7 @@ var yourName = "Kevin";
 if (true) {
     console.log(myName)
 }
-
+    
 //Example 2
 if (true) {
     let myName = "I am local"
@@ -18,15 +18,15 @@ if (true) {
     console.log(myName)
     console.log(yourName)
 }
-
+    
 //Example 3
 if (true) {
-    let nestedName = "I am local"
+    var nestedName = "I am local"
 }
 
 console.log(nestedName)
-
-
+        
+        
 // With Functions
 //Example 1
 const printName = () => console.log(myName)
@@ -41,24 +41,25 @@ newPrintName();
 //Example 2
 function outer () {
     function inner () {
-        console.log('Inside first()');
+        console.log('Inside inner()');
         
         console.log('myName is currently equal to:', myName);
     }
     
-    const myName = 'Cernan';
     inner();
+    var myName = 'Cernan';
 }
 outer();
 
 //Implied Globals
 //Define three globals
+// "use strict"
 impliedGlobal = 2; // antipattern
 var global_var = 1; // also antipattern since ES6
 function thirdGlobal() {
    function_global = 3; // antipattern
 }
-thirdGlobal; // export default as module
+export default thirdGlobal; // export default as module
 
 // Log the before & after deletion values
 console.log("Before deletion: ", typeof global_var);
@@ -72,3 +73,4 @@ console.log("After deletion: ", typeof impliedGlobal);
 console.log("Before deletion: ", typeof function_global);
 delete function_global;
 console.log("After deletion: ", typeof function_global);
+
