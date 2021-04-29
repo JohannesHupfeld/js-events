@@ -1,3 +1,5 @@
+const blogs = [];
+const buttons = () => document.querySelector("#buttons")
 const main = () => document.querySelector("#main")
 const form = () => document.querySelector("#new-blog-form")
 const h1 = () => document.querySelector("#page-title")
@@ -40,15 +42,48 @@ const blogsTemplate = () => {
 const handleShowFormClick = (e) => {
     e.preventDefault();
     main().innerHTML = formTemplate();
+    if (form()) {
+        form().addEventListener("submit", handleSubmit)
+    }
 }
 
 const handleShowBlogsClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    showBlogs();
+}
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+    blogs.push({
+        title: titleInput().value,
+        content: contentInput().value
+    });
+    showBlogs();
+}
+
+const showBlogs = () => {
     main().innerHTML = blogsTemplate();
+    if (blogsList()) {
+        blogs.forEach(blog => renderBlog(blog))
+    }
+}
+
+const renderBlog = (blog) => {
+    const li = document.createElement("li");
+    const h3 = document.createElement("h3");
+    h3.innerHTML = blog.title;
+    h3.className = "blog-title";
+    const p = document.createElement("p");
+    p.innerHTML = blog.content;
+    p.className = "blog-content";
+    li.appendChild(h3);
+    li.appendChild(p);
+    blogsList().appendChild(li)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM just loaded!");
     showFormButton().addEventListener("click", handleShowFormClick);
     showBlogsButton().addEventListener("click", handleShowBlogsClick);
+    buttons().addEventListener("click", (e) => e.target.style.backgroundColor = "orange")
 })
