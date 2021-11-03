@@ -1,55 +1,59 @@
-/* Variables and Scopes
-* locals: let, const
-* global: var
-*/
+// /* Variables and Scopes
+// * locals: let, const
+// * global: var
+// */
 
-let myName = 'I am global';
-var yourName = "Kevin";
+// let myName = 'I am global';
+// var yourName = "Kevin";
 
-//Example 1
-if (true) {
-    console.log(myName)
-}
-    
-//Example 2
-if (true) {
-    let myName = "I am local"
-    var yourName = "Karl"
-    console.log(myName)
-    console.log(yourName)
-}
-    
-//Example 3
-if (true) {
-    var nestedName = "I am local"
-}
+// Example 1
+// if (true) {
+//     console.log(myName)
+// }                           // *** returns "I am global", didnt find variables within block so looked for variables in global
+//     ---------------------------------------------------------------------------
 
-console.log(nestedName)
+// Example 2
+// if (true) {
+//     let myName = "I am local"
+//     var yourName = "Karl"
+//     console.log(myName)
+//     console.log(yourName)
+// }                              // *** returns "I am local " & "Karl" --> scope has one direction, inward to outward, it looks for those variables within the block, if it finds them it uses them if not then goes global 
+//     ---------------------------------------------------------------------------
+
+// Example 3
+// if (true) {
+//     let nestedName = "I am local"
+// }
+
+// console.log(nestedName)  // ***  code breaks because nestedName is not defined. If it was var it would print "I am local"
         
-        
+      
 // With Functions
-//Example 1
-const printName = () => console.log(myName)
+// Example 1             // *** function expression with ES6 notation (arrow function)
+// let myName = 'I am global';
+// const printName = () => console.log(myName)
 
-const newPrintName = () => {
-    let myName = "Luigi"
-    printName()
-}
+// const newPrintName = () => {
+//     let myName = "Luigi"
+//     printName()
+// }
 
-newPrintName();
+// newPrintName();     // *** prints "I am global" -->  printName was not defined inside of newPrintName and therefore it doesnt see the newName variable but it sees the global variable. What matters is not where the function got invoked but declared in the matter of scope.
 
-//Example 2
+// Example 2
+let myName = 'I am global';
 function outer () {
     function inner () {
         console.log('Inside inner()');
         
         console.log('myName is currently equal to:', myName);
-    }
+    } // gets read and hoisted
     
-    inner();
-    var myName = 'Cernan';
+    const myName = 'Cernan'; // this gets read but not hoisted since its not a var 
+    inner();  // inner gets invoked here
 }
-outer();
+outer(); // prints out inside inner and myName is currently equal to: Cernan. when a function is defined inside another functon it has access to the lexical(see notes) scope
 
 //Implied Globals
 //Define three globals
@@ -74,3 +78,4 @@ console.log("Before deletion: ", typeof function_global);
 delete function_global;
 console.log("After deletion: ", typeof function_global);
 
+// var's cannot be deleted with a dlete key word

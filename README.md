@@ -1,6 +1,6 @@
 # Agenda
 
-- Scope, Variable, Functions (10')
+- Scope, Variable, Functions (10 ')
 - JS Events: Blog proto-SPA (1hr)
 
 ## Key Questions When Dealing With Events
